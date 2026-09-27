@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Sinkronasi Data Kelas Akhir PKBM Riyadhussholihiin</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Poppins', sans-serif;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        
+        /* Layout Print optimization */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            .print-only {
+                display: block !important;
+            }
+            body {
+                background-color: #ffffff !important;
+                color: #000000 !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            .print-card {
+                box-shadow: none !important;
+                border: none !important;
+                padding: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between antialiased selection:bg-indigo-500 selection:text-white">
+
+    <header class="bg-gradient-to-r from-indigo-700 via-indigo-600 to-blue-600 text-white shadow-lg no-print">
+        <div class="max-w-5xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center space-x-3 text-center sm:text-left">
+                    <div class="p-3 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
+                        <i class="fa-solid fa-graduation-cap text-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">Formulir Data Diri Peserta Didik</h1>
+                        <p class="text-indigo-100 text-xs sm:text-sm mt-1">Sistem Pengumpulan Data Siswa Resmi & Terpadu</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 text-xs bg-white/10 border border-white/20 px-3 py-1.5 rounded-full font-medium">
+                    <i class="fa-solid fa-shield-halved text-emerald-300"></i>
+                    <span>Tersimpan Otomatis (Draft)</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-8 sm:px-6 w-full flex-grow">
+        
+        <!-- Progress Bar & Step Indicator (No Print) -->
+        <div class="mb-8 bg-white p-5 rounded-2xl shadow-sm border border-slate-200/80 no-print">
+            <div class="flex justify-between items-center mb-3">
+                <div class="flex items-center gap-2">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md" id="stepBadge">Langkah 1 dari 4</span>
+                    <span class="text-xs text-slate-500 font-medium hidden sm:inline" id="stepTitleText">Data Pribadi Siswa</span>
+                </div>
+                <div class="text-right">
+                    <span class="text-xs text-slate-500 font-medium">Kelengkapan Form: </span>
+                    <span class="text-sm font-bold text-indigo-600" id="progressPercentage">0%</span>
+                </div>
+            </div>
+
+            <!-- Progress Bar Line -->
+            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden mb-6">
+                <div id="progressBar" class="bg-gradient-to-r from-indigo-500 to-blue-500 h-full rounded-full transition-all duration-300 ease-out" style="width: 0%"></div>
+            </div>
+
+            <!-- Step Wizard Nav Icons (4 Steps) -->
+            <div class="grid grid-cols-4 gap-2 text-center text-xs font-medium">
+                <!-- Step 1 Indicator -->
+                <button type="button" onclick="goToStep(1)" id="stepBtn-1" class="flex flex-col items-center gap-1.5 p-2 rounded-xl transition-all text-indigo-600 font-semibold bg-indigo-50/80 border border-indigo-100">
+                    <div id="stepCircle-1" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center bg-indigo-600 text-white shadow-sm font-bold text-xs sm:text-sm">1</div>
+                    <span class="hidden sm:inline">Data Pribadi</span>
+                </button>
+                <!-- Step 2 Indicator -->
+                <button type="button" onclick="goToStep(2)" id="stepBtn-2" class="flex flex-col items-center gap-1.5 p-2 rounded-xl transition-all text-slate-400 hover:text-slate-600">
+                    <div id="stepCircle-2" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center bg-slate-200 text-slate-600 font-bold text-xs sm:text-sm">2</div>
+                    <span class="hidden sm:inline">Orang Tua</span>
+                </button>
+                <!-- Step 3 Indicator -->
+                <button type="button" onclick="goToStep(3)" id="stepBtn-3" class="flex flex-col items-center gap-1.5 p-2 rounded-xl transition-all text-slate-400 hover:text-slate-600">
+                    <div id="stepCircle-3" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center bg-slate-200 text-slate-600 font-bold text-xs sm:text-sm">3</div>
+                    <span class="hidden sm:inline">Upload Berkas</span>
+                </button>
+                <!-- Step 4 Indicator -->
+                <button type="button" onclick="goToStep(4)" id="stepBtn-4" class="flex flex-col items-center gap-1.5 p-2 rounded-xl transition-all text-slate-400 hover:text-slate-600">
+                    <div id="stepCircle-4" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center bg-slate-200 text-slate-600 font-bold text-xs sm:text-sm">4</div>
+                    <span class="hidden sm:inline">Konfirmasi</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Notification Banner (Alert) -->
+        <div id="alertBanner" class="hidden mb-6 p-4 rounded-xl border flex items-start gap-3 transition-all duration-300">
+            <i id="alertIcon" class="fa-solid fa-circle-exclamation mt-0.5"></i>
+            <div class="flex-1 text-sm font-medium" id="alertMessage"></div>
+            <button type="button" onclick="closeAlert()" class="text-slate-400 hover:text-slate-600">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <form id="studentForm" onsubmit="handleFormSubmit(event)" class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden print-card">
+            
+            <!-- STEP 1: DATA PRIBADI SISWA -->
+            <div id="step-1" class="step-content p-6 sm:p-8">
+                <div class="border-b border-slate-100 pb-4 mb-6">
+                    <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-user text-indigo-600"></i>
+                        Data Pribadi Siswa
+                    </h2>
+                    <p class="text-slate-500 text-xs sm:text-sm mt-1">Lengkapi identitas diri siswa sesuai dengan Akta Kelahiran dan Kartu Keluarga.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Nama Lengkap -->
+                    <div class="md:col-span-2">
+                        <label for="namaLengkap" class="block text-sm font-medium text-slate-700 mb-1.5">Nama Lengkap <span class="text-rose-500">*</span></label>
+                        <input type="text" id="namaLengkap" name="namaLengkap" required placeholder="Contoh: Muhammad Rizky Pratama" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none text-sm">
+                    </div>
+
+                    <!-- Jenis Kelamin -->
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1.5">Jenis Kelamin <span class="text-rose-500">*</span></label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <label class="flex items-center justify-center p-2.5 rounded-xl border border-slate-300 cursor-pointer hover:bg-slate-50 transition-all text-sm font-medium text-slate-700 has-[:checked]:border-indigo-600 has-[:checked]:bg-indigo-50/50 has-[:checked]:text-indigo-700">
+                                <input type="radio" name="jenisKelamin" value="Laki-laki" required class="sr-only">
+                                <i class="fa-solid fa-mars mr-2 text-indigo-600"></i>
+                                Laki-Laki
+                            </label>
+                            <label class="flex items-center justify-center p-2.5 rounded-xl border border-slate-300 cursor-pointer hover:bg-slate-50 transition-all text-sm font-medium text-slate-700 has-[:checked]:border-indigo-600 has-[:checked]:bg-indigo-50/50 has-[:checked]:text-indigo-700">
+                                <input type="radio" name="jenisKelamin" value="Perempuan" required class="sr-only">
+                                <i class="fa-solid fa-venus mr-2 text-pink-600"></i>
+                                Perempuan
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Agama -->
+                    <div>
+                        <label for="agama" class="block text-sm font-medium text-slate-700 mb-1.5">Agama <span class="text-rose-500">*</span></label>
+                        <select id="agama" name="agama" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none text-sm bg-white">
+                            <option value="">-- Pilih Agama --</option>
+                            <option value="Islam">Islam</option>
+                            <option value="Kristen Protestan">Kristen Protestan</option>
+                            <option value="Katolik">Katolik</option>
+                            <option value="Hindu">Hindu</option>
+                            <option value="Buddha">Buddha</option>
+                            <option value="Khonghucu">Khonghucu</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+                    </div>
+
+                    <!-- NIK -->
+                    <div>
+                        <label for="nik" class="block text-sm font-medium text-slate-700 mb-1.5">NIK (Nomor Induk Kependudukan) <span class="text-rose-500">*</span></label>
+                        <input type="text" id="nik" name="nik" maxlength="16" required placeholder="16 digit angka sesuai KK" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none text-sm font-mono" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                        <p class="text-xs text-rose-500 mt-1 hidden" id="error-nik">NIK wajib diisi tepat 16 digit angka.</p>
+                    </div>
+
+                    <!-- NISN -->
+                    <div>
+                        <label for="nisn" class="block text-sm font-medium text-slate-700 mb-1.5">NISN (Nomor Induk Siswa Nasional) <span class="text-rose-500">*</span></label>
+                        <input type="text" id="nisn" name="nisn" maxlength="10" required placeholder="10 digit angka NISN" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none text-sm font-mono" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                        <p class="text-xs text-rose-500 mt-1 hidden" id="error-nisn">NISN wajib diisi tepat 10 digit angka.</p>
+                    </div>
+
+                    <!-- Tempat Lahir -->
+                    <div>
+                        <label for="tempatLahir" class="block text-sm font-medium text-slate-700 mb-1.5">Tempat Lahir <span class="text-rose-500">*</span></label>
+                        <input type="text" id="tempatLahir" name="tempatLahir" required placeholder="Contoh: Jakarta" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none text-sm">
+                    </div>
+
+                    <!-- Tanggal Lahir -->
+                    <div>
+                        <label for="tanggalLahir" class="block text-sm font-medium text-slate-700 mb-1.5">Tanggal Lahir <span class="text-rose-500">*</span></label>
+                        <input type="date" id="tanggalLahir" name="tanggalLahir" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none text-sm">
+                    </div>
+
+                    <!-- Alamat Lengkap Siswa -->
+                    <div class="md:col-span-2">
+                        <label for="alamat" class="block text-sm font-medium text-slate-700 mb-1.5">Alamat Tempat Tinggal Siswa <span class="text-rose-500">*</span></label>
+                        <textarea id="alamat" name="alamat" rows="3" required placeholder="Jl. Mawar No. 12, RT 01 / RW 02, Kelurahan, Kecamatan, Kota/Kabupaten" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none text-sm resize-none"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 2: DATA ORANG TUA / WALI -->
+            <div id="step-2" class="step-content p-6 sm:p-8 hidden">
+                <div class="border-b border-slate-100 pb-4 mb-6">
+                    <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-users text-indigo-600"></i>
+                        Data Orang Tua / Wali
+                    </h2>
+                    <p class="text-slate-500 text-xs sm:text-sm mt-1">Lengkapi data orang tua atau wali murid sebagai kontak utama komunikasi sekolah.</p>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Data Ayah -->
+                    <div class="bg-slate-50 p-4 sm:p-5 rounded-2xl border border-slate-200">
+                        <h3 class="text-sm font-semibold text-indigo-900 mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-user-tie text-indigo-600"></i> Data Ayah Kandung
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="namaAyah" class="block text-xs font-medium text-slate-700 mb-1">Nama Lengkap Ayah <span class="text-rose-500">*</span></label>
+                                <input type="text" id="namaAyah" name="namaAyah" required placeholder="Nama Ayah Kandung" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none text-sm bg-white">
+                            </div>
+                            <div>
+                                <label for="pekerjaanAyah" class="block text-xs font-medium text-slate-700 mb-1">Pekerjaan Ayah <span class="text-rose-500">*</span></label>
+                                <select id="pekerjaanAyah" name="pekerjaanAyah" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none text-sm bg-white">
+                                    <option value="">-- Pilih Pekerjaan --</option>
+                                    <option value="PNS / TNI / Polri">PNS / TNI / Polri</option>
+                                    <option value="Pegawai Swasta">Pegawai Swasta</option>
+                                    <option value="Wiraswasta">Wiraswasta / Usaha Mandiri</option>
+                                    <option value="Petani / Peternak">Petani / Peternak</option>
+                                    <option value="Buruh / Harian Lepas">Buruh / Harian Lepas</option>
+                                    <option value="Pensiunan">Pensiunan</option>
+                                    <option value="Tidak Bekerja">Tidak Bekerja</option>
+                                    <option value="Lainnya">Lainnya</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data Ibu -->
+                    <div class="bg-slate-50 p-4 sm:p-5 rounded-2xl border border-slate-200">
+                        <h3 class="text-sm font-semibold text-indigo-900 mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-user-nurse text-indigo-600"></i> Data Ibu Kandung
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="namaIbu" class="block text-xs font-medium text-slate-700 mb-1">Nama Lengkap Ibu <span class="text-rose-500">*</span></label>
+                                <input type="text" id="namaIbu" name="namaIbu" required placeholder="Nama Ibu Kandung" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none text-sm bg-white">
+                            </div>
+                            <div>
+                                <label for="pekerjaanIbu" class="block text-xs font-medium text-slate-700 mb-1">Pekerjaan Ibu <span class="text-rose-500">*</span></label>
+                                <select id="pekerjaanIbu" name="pekerjaanIbu" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none text-sm bg-white">
+                                    <option value="">-- Pilih Pekerjaan --</option>
+                                    <option value="Ibu Rumah Tangga">Ibu Rumah Tangga</option>
+                                    <option value="PNS / TNI / Polri">PNS / TNI / Polri</option>
+                                    <option value="Pegawai Swasta">Pegawai Swasta</option>
+                                    <option value="Wiraswasta">Wiraswasta / Usaha Mandiri</option>
+                                    <option value="Petani / Peternak">Petani / Peternak</option>
+                                    <option value="Buruh">Buruh</option>
+                                    <option value="Lainnya">Lainnya</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kontak Utama (WhatsApp Orang Tua / Wali) -->
+                    <div>
+                        <label for="noOrtu" class="block text-sm font-medium text-slate-700 mb-1.5">Nomor WhatsApp Orang Tua / Wali (Kontak Utama) <span class="text-rose-500">*</span></label>
+                        <div class="relative">
+                            <span class="absolute left-3.5 top-2.5 text-slate-400 text-sm font-medium">+62</span>
+                            <input type="tel" id="noOrtu" name="noOrtu" placeholder="81298765432" required class="w-full pl-12 pr-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none text-sm" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                        </div>
+                        <span class="text-xs text-slate-400 mt-1 block">Nomor aktif untuk menerima pesan konfirmasi dan informasi sekolah.</span>
+                    </div>
+
+                    <!-- Alamat Orang Tua -->
+                    <div>
+                        <div class="flex items-center justify-between mb-1.5">
+                            <label for="alamatOrtu" class="block text-sm font-medium text-slate-700">Alamat Tempat Tinggal Orang Tua <span class="text-rose-500">*</span></label>
+                            <button type="button" onclick="copyAlamatSiswa()" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
+                                <i class="fa-regular fa-copy"></i> Sama dengan Alamat Siswa
+                            </button>
+                        </div>
+                        <textarea id="alamatOrtu" name="alamatOrtu" rows="3" required placeholder="Jl. Mawar No. 12, RT 01 / RW 02, Kelurahan, Kecamatan, Kota/Kabupaten" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none text-sm resize-none"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 3: UPLOAD BERKAS DOKUMEN -->
+            <div id="step-3" class="step-content p-6 sm:p-8 hidden">
+                <div class="border-b border-slate-100 pb-4 mb-6">
+                    <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-cloud-arrow-up text-indigo-600"></i>
+                        Upload Dokumen Pendukung
+                    </h2>
+                    <p class="text-slate-500 text-xs sm:text-sm mt-1">Unggah dokumen kelengkapan administrasi dalam format PDF, JPG, atau PNG (Maksimal 2MB per file).</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Upload Akte Kelahiran -->
+                    <div class="border border-slate-200 rounded-2xl p-4 bg-slate-50 hover:bg-white hover:shadow-sm transition-all">
+                        <label class="block text-sm font-semibold text-slate-800 mb-1 flex items-center justify-between">
+                            <span class="flex items-center gap-2">
+                                <i class="fa-regular fa-file-lines text-indigo-600"></i>
+                                Akte Kelahiran <span class="text-rose-500">*</span>
+                            </span>
+                            <span class="text-[10px] uppercase tracking-wider font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">Wajib</span>
+                        </label>
+                        <p class="text-xs text-slate-500 mb-3">Format PDF, JPG, atau PNG</p>
+                        <input type="file" id="fileAkte" name="fileAkte" accept=".pdf,.jpg,.jpeg,.png" required onchange="handleFileChange(this, 'statusAkte')" class="block w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer">
+                        <div id="statusAkte" class="mt-2 text-xs hidden flex items-center gap-1.5 text-emerald-600 font-medium">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span class="file-info">Berkas terpilih</span>
+                        </div>
+                    </div>
+
+                    <!-- Upload Kartu Keluarga -->
+                    <div class="border border-slate-200 rounded-2xl p-4 bg-slate-50 hover:bg-white hover:shadow-sm transition-all">
+                        <label class="block text-sm font-semibold text-slate-800 mb-1 flex items-center justify-between">
+                            <span class="flex items-center gap-2">
+                                <i class="fa-solid fa-id-card text-indigo-600"></i>
+                                Kartu Keluarga (KK) Terupdate <span class="text-rose-500">*</span>
+                            </span>
+                            <span class="text-[10px] uppercase tracking-wider font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">Wajib</span>
+                        </label>
+                        <p class="text-xs text-slate-500 mb-3">Format PDF, JPG, atau PNG</p>
+                        <input type="file" id="fileKK" name="fileKK" accept=".pdf,.jpg,.jpeg,.png" required onchange="handleFileChange(this, 'statusKK')" class="block w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer">
+                        <div id="statusKK" class="mt-2 text-xs hidden flex items-center gap-1.5 text-emerald-600 font-medium">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span class="file-info">Berkas terpilih</span>
+                        </div>
+                    </div>
+
+                    <!-- Upload Ijazah SD -->
+                    <div class="border border-slate-200 rounded-2xl p-4 bg-slate-50 hover:bg-white hover:shadow-sm transition-all">
+                        <label class="block text-sm font-semibold text-slate-800 mb-1 flex items-center justify-between">
+                            <span class="flex items-center gap-2">
+                                <i class="fa-solid fa-award text-indigo-600"></i>
+                                Ijazah SD / MI <span class="text-rose-500">*</span>
+                            </span>
+                            <span class="text-[10px] uppercase tracking-wider font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">Wajib</span>
+                        </label>
+                        <p class="text-xs text-slate-500 mb-3">Format PDF, JPG, atau PNG</p>
+                        <input type="file" id="fileIjazahSD" name="fileIjazahSD" accept=".pdf,.jpg,.jpeg,.png" required onchange="handleFileChange(this, 'statusIjazahSD')" class="block w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer">
+                        <div id="statusIjazahSD" class="mt-2 text-xs hidden flex items-center gap-1.5 text-emerald-600 font-medium">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span class="file-info">Berkas terpilih</span>
+                        </div>
+                    </div>
+
+                    <!-- Upload Ijazah SMP (OPSIONAL / TIDAK WAJIB) -->
+                    <div class="border border-slate-200 rounded-2xl p-4 bg-slate-50 hover:bg-white hover:shadow-sm transition-all">
+                        <label class="block text-sm font-semibold text-slate-800 mb-1 flex items-center justify-between">
+                            <span class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-graduation-cap text-slate-500"></i>
+                                Ijazah SMP
+                            </span>
+                            <span class="text-[10px] uppercase tracking-wider font-bold text-slate-600 bg-slate-200/70 px-2 py-0.5 rounded">(Opsional)</span>
+                        </label>
+                        <p class="text-xs text-amber-700 font-medium bg-amber-50 px-2.5 py-1 rounded-md border border-amber-200/60 mb-2">
+                            (Ijazah selain lulusan Paket PKBM Riyadhussholihiin)
+                        </p>
+                        <p class="text-xs text-slate-500 mb-3">Format PDF, JPG, atau PNG</p>
+                        <!-- Input file sengaja tanpa attribute required -->
+                        <input type="file" id="fileIjazahSMP" name="fileIjazahSMP" accept=".pdf,.jpg,.jpeg,.png" onchange="handleFileChange(this, 'statusIjazahSMP')" class="block w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-slate-200 file:text-slate-700 hover:file:bg-slate-300 cursor-pointer">
+                        <div id="statusIjazahSMP" class="mt-2 text-xs hidden flex items-center gap-1.5 text-emerald-600 font-medium">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span class="file-info">Berkas terpilih</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 4: KONFIRMASI & PRATINJAU DATA -->
+            <div id="step-4" class="step-content p-6 sm:p-8 hidden">
+                <div class="border-b border-slate-100 pb-4 mb-6 flex justify-between items-start">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-clipboard-check text-indigo-600"></i>
+                            Pratinjau Ringkasan Data
+                        </h2>
+                        <p class="text-slate-500 text-xs sm:text-sm mt-1">Periksa kembali kebenaran seluruh data yang diisi sebelum mengirimkan formulir.</p>
+                    </div>
+                </div>
+
+                <!-- Container Preview Dinamis -->
+                <div id="previewContainer" class="space-y-6 text-sm">
+                    <!-- Populated dynamically by JS -->
+                </div>
+
+                <!-- Checkbox Persetujuan -->
+                <div class="mt-8 pt-6 border-t border-slate-200 no-print">
+                    <label class="flex items-start gap-3 p-4 bg-amber-50/70 border border-amber-200 rounded-xl cursor-pointer">
+                        <input type="checkbox" id="persetujuan" required class="mt-1 w-4 h-4 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500">
+                        <span class="text-xs sm:text-sm text-slate-700 font-medium">
+                            Saya menyatakan bahwa data dan berkas dokumen yang terlampir adalah benar dan valid sesuai dengan identitas asli.
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Footer Controls / Nav Buttons -->
+            <div class="bg-slate-50 px-6 py-4 sm:px-8 border-t border-slate-100 flex items-center justify-between no-print">
+                <button type="button" id="prevBtn" onclick="nextPrev(-1)" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 font-medium text-sm transition-all flex items-center gap-2 invisible">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Kembali
+                </button>
+
+                <div class="flex items-center gap-2">
+                    <button type="button" id="nextBtn" onclick="nextPrev(1)" class="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm transition-all shadow-md shadow-indigo-200 flex items-center gap-2">
+                        Selanjutnya
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+
+                    <button type="submit" id="submitBtn" class="hidden px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm transition-all shadow-md shadow-emerald-200 flex items-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        Kirim Form Data
+                    </button>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 mt-12 py-6 text-center text-xs text-slate-500 no-print">
+        <p>© 2026 Formulir Digital Peserta Didik. Sistem Pendaftaran Resmi.</p>
+    </footer>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden no-print">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-slate-100 text-center transform transition-all scale-95 opacity-0 duration-300" id="modalCard">
+            <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-inner">
+                <i class="fa-solid fa-circle-check text-3xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-800 font-heading">Berhasil Dikirim!</h3>
+            <p class="text-slate-600 text-sm mt-2">Data peserta didik atas nama <span id="modalStudentName" class="font-semibold text-slate-900"></span> telah tersimpan.</p>
+            
+            <div class="mt-6 flex flex-col sm:flex-row gap-3">
+                <button type="button" onclick="window.print()" class="flex-1 px-4 py-2.5 rounded-xl border border-slate-300 hover:bg-slate-50 text-slate-700 font-medium text-sm flex items-center justify-center gap-2 transition-all">
+                    <i class="fa-solid fa-print"></i>
+                    Cetak / Simpan PDF
+                </button>
+                <button type="button" onclick="downloadJSON()" class="flex-1 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm flex items-center justify-center gap-2 transition-all">
+                    <i class="fa-solid fa-download"></i>
+                    Download JSON
+                </button>
+            </div>
+
+            <button type="button" onclick="resetForm()" class="mt-4 text-xs text-slate-400 hover:text-slate-600 transition-all underline">
+                Isi formulir baru
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 4;
+        let formDataCache = {};
+        let uploadedFileNames = {
+            fileAkte: '',
+            fileKK: '',
+            fileIjazahSD: '',
+            fileIjazahSMP: ''
+        };
+
+        // Initialize Form logic on DOM ready
+        document.addEventListener('DOMContentLoaded', () => {
+            loadFormDraft();
+            showStep(currentStep);
+            setupInputListeners();
+            calculateProgress();
+        });
+
+        // Copy Alamat Siswa ke Alamat Orang Tua
+        function copyAlamatSiswa() {
+            const alamatSiswa = document.getElementById("alamat").value;
+            if (alamatSiswa) {
+                document.getElementById("alamatOrtu").value = alamatSiswa;
+                saveFormDraft();
+                calculateProgress();
+            } else {
+                showAlert("Alamat siswa masih kosong.", "warning");
+            }
+        }
+
+        // Display Uploaded File Info
+        function handleFileChange(input, statusId) {
+            const statusEl = document.getElementById(statusId);
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                
+                // Max file size 2MB validation
+                if (file.size > 2 * 1024 * 1024) {
+                    showAlert(`Ukuran file "${file.name}" melebihi batas 2MB.`, "warning");
+                    input.value = "";
+                    uploadedFileNames[input.id] = '';
+                    statusEl.classList.add('hidden');
+                    calculateProgress();
+                    return;
+                }
+
+                uploadedFileNames[input.id] = file.name;
+                statusEl.querySelector('.file-info').innerText = `${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`;
+                statusEl.classList.remove('hidden');
+            } else {
+                uploadedFileNames[input.id] = '';
+                statusEl.classList.add('hidden');
+            }
+            calculateProgress();
+            saveFormDraft();
+        }
+
+        // Show specific step
+        function showStep(stepNumber) {
+            const steps = document.getElementsByClassName("step-content");
+            for (let i = 0; i < steps.length; i++) {
+                steps[i].classList.add("hidden");
+            }
+            document.getElementById(`step-${stepNumber}`).classList.remove("hidden");
+
+            const prevBtn = document.getElementById("prevBtn");
+            const nextBtn = document.getElementById("nextBtn");
+            const submitBtn = document.getElementById("submitBtn");
+
+            if (stepNumber === 1) {
+                prevBtn.classList.add("invisible");
+            } else {
+                prevBtn.classList.remove("invisible");
+            }
+
+            if (stepNumber === totalSteps) {
+                nextBtn.classList.add("hidden");
+                submitBtn.classList.remove("hidden");
+                renderPreview();
+            } else {
+                nextBtn.classList.remove("hidden");
+                submitBtn.classList.add("hidden");
+            }
+
+            updateIndicators(stepNumber);
+            currentStep = stepNumber;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Next/Prev navigation
+        function nextPrev(n) {
+            if (n === 1 && !validateFormStep(currentStep)) {
+                showAlert("Harap lengkapi semua kolom dan berkas wajib sebelum melangkah ke tahap berikutnya.", "error");
+                return;
+            }
+            
+            closeAlert();
+            currentStep += n;
+
+            if (currentStep > totalSteps) {
+                currentStep = totalSteps;
+                return false;
+            }
+            if (currentStep < 1) {
+                currentStep = 1;
+                return false;
+            }
+            showStep(currentStep);
+        }
+
+        // Direct step clicking
+        function goToStep(step) {
+            if (step > currentStep && !validateFormStep(currentStep)) {
+                showAlert("Harap isi bidang wajib pada langkah saat ini terlebih dahulu.", "warning");
+                return;
+            }
+            closeAlert();
+            showStep(step);
+        }
+
+        // Form Validation per step
+        function validateFormStep(step) {
+            let isValid = true;
+            const currentStepEl = document.getElementById(`step-${step}`);
+            const requiredInputs = currentStepEl.querySelectorAll("[required]");
+
+            requiredInputs.forEach(input => {
+                if (input.type === "radio") {
+                    const name = input.name;
+                    const radioGroup = currentStepEl.querySelectorAll(`input[name="${name}"]:checked`);
+                    if (radioGroup.length === 0) {
+                        isValid = false;
+                    }
+                } else if (input.type === "file") {
+                    if (!input.files || input.files.length === 0) {
+                        isValid = false;
+                    }
+                } else if (!input.value.trim()) {
+                    isValid = false;
+                    highlightInputError(input, true);
+                } else {
+                    highlightInputError(input, false);
+                }
+            });
+
+            // Specific validations for Step 1
+            if (step === 1) {
+                const nik = document.getElementById("nik").value;
+                const errorNik = document.getElementById("error-nik");
+                if (nik.length !== 16) {
+                    isValid = false;
+                    errorNik.classList.remove("hidden");
+                    highlightInputError(document.getElementById("nik"), true);
+                } else {
+                    errorNik.classList.add("hidden");
+                }
+
+                const nisn = document.getElementById("nisn").value;
+                const errorNisn = document.getElementById("error-nisn");
+                if (nisn.length !== 10) {
+                    isValid = false;
+                    errorNisn.classList.remove("hidden");
+                    highlightInputError(document.getElementById("nisn"), true);
+                } else {
+                    errorNisn.classList.add("hidden");
+                }
+            }
+
+            return isValid;
+        }
+
+        function highlightInputError(input, isError) {
+            if (isError) {
+                input.classList.add("border-rose-500", "focus:ring-rose-500", "focus:border-rose-500");
+                input.classList.remove("border-slate-300", "focus:ring-indigo-500", "focus:border-indigo-500");
+            } else {
+                input.classList.remove("border-rose-500", "focus:ring-rose-500", "focus:border-rose-500");
+                input.classList.add("border-slate-300", "focus:ring-indigo-500", "focus:border-indigo-500");
+            }
+        }
+
+        function updateIndicators(step) {
+            document.getElementById("stepBadge").innerText = `Langkah ${step} dari ${totalSteps}`;
+            
+            const stepTitles = [
+                "Data Pribadi Siswa",
+                "Data Orang Tua / Wali",
+                "Upload Dokumen Pendukung",
+                "Konfirmasi & Pratinjau"
+            ];
+            document.getElementById("stepTitleText").innerText = stepTitles[step - 1];
+
+            for (let i = 1; i <= totalSteps; i++) {
+                const btn = document.getElementById(`stepBtn-${i}`);
+                const circle = document.getElementById(`stepCircle-${i}`);
+
+                if (i === step) {
+                    btn.className = "flex flex-col items-center gap-1.5 p-2 rounded-xl transition-all text-indigo-600 font-semibold bg-indigo-50/80 border border-indigo-100";
+                    circle.className = "w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center bg-indigo-600 text-white shadow-sm font-bold text-xs sm:text-sm";
+                    circle.innerText = i;
+                } else if (i < step) {
+                    btn.className = "flex flex-col items-center gap-1.5 p-2 rounded-xl transition-all text-emerald-600 font-medium";
+                    circle.className = "w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center bg-emerald-500 text-white font-bold text-xs sm:text-sm";
+                    circle.innerHTML = `<i class="fa-solid fa-check"></i>`;
+                } else {
+                    btn.className = "flex flex-col items-center gap-1.5 p-2 rounded-xl transition-all text-slate-400 hover:text-slate-600";
+                    circle.className = "w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center bg-slate-200 text-slate-600 font-bold text-xs sm:text-sm";
+                    circle.innerText = i;
+                }
+            }
+            calculateProgress();
+        }
+
+        function calculateProgress() {
+            const form = document.getElementById("studentForm");
+            const requiredInputs = form.querySelectorAll("input[required], select[required], textarea[required]");
+            let filledCount = 0;
+
+            requiredInputs.forEach(input => {
+                if (input.type === "radio") {
+                    const checked = form.querySelector(`input[name="${input.name}"]:checked`);
+                    if (checked) filledCount++;
+                } else if (input.type === "file") {
+                    if (input.files && input.files.length > 0) filledCount++;
+                } else if (input.value.trim() !== "") {
+                    filledCount++;
+                }
+            });
+
+            const radioGroups = new Set(Array.from(form.querySelectorAll('input[type="radio"][required]')).map(r => r.name));
+            const totalRequiredFields = (requiredInputs.length - (radioGroups.size > 0 ? radioGroups.size : 0)) + radioGroups.size;
+
+            const percentage = Math.round((filledCount / Math.max(totalRequiredFields, 1)) * 100);
+            const clampedPercent = Math.min(percentage, 100);
+
+            document.getElementById("progressBar").style.width = clampedPercent + "%";
+            document.getElementById("progressPercentage").innerText = clampedPercent + "%";
+        }
+
+        function setupInputListeners() {
+            const inputs = document.querySelectorAll("input, select, textarea");
+            inputs.forEach(input => {
+                input.addEventListener("input", () => {
+                    calculateProgress();
+                    saveFormDraft();
+                    if (input.value.trim() !== "") {
+                        highlightInputError(input, false);
+                    }
+                });
+            });
+        }
+
+        // LocalStorage Draft handling
+        function saveFormDraft() {
+            const form = document.getElementById("studentForm");
+            const formData = new FormData(form);
+            const dataObj = {};
+            for (let [key, val] of formData.entries()) {
+                if (!(val instanceof File)) {
+                    dataObj[key] = val;
+                }
+            }
+            localStorage.setItem("siswa_form_draft", JSON.stringify(dataObj));
+        }
+
+        function loadFormDraft() {
+            const saved = localStorage.getItem("siswa_form_draft");
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    Object.keys(data).forEach(key => {
+                        const field = document.querySelector(`[name="${key}"]`);
+                        if (field) {
+                            if (field.type === "radio") {
+                                const radio = document.querySelector(`input[name="${key}"][value="${data[key]}"]`);
+                                if (radio) radio.checked = true;
+                            } else {
+                                field.value = data[key];
+                            }
+                        }
+                    });
+                } catch(e) { console.error("Error loading draft", e); }
+            }
+        }
+
+        // Render Summary Preview
+        function renderPreview() {
+            const form = document.getElementById("studentForm");
+            const formData = new FormData(form);
+            formDataCache = Object.fromEntries(formData.entries());
+
+            const previewEl = document.getElementById("previewContainer");
+            previewEl.innerHTML = `
+                <!-- Data Pribadi -->
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+                    <h3 class="font-bold text-slate-800 text-sm border-b border-slate-200 pb-2 mb-3 flex items-center justify-between">
+                        <span class="flex items-center gap-2"><i class="fa-solid fa-user text-indigo-600"></i> Data Pribadi Siswa</span>
+                        <button type="button" onclick="goToStep(1)" class="text-xs text-indigo-600 hover:underline no-print font-medium">Ubah</button>
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4 text-xs sm:text-sm">
+                        <div><span class="text-slate-500">Nama Lengkap:</span> <p class="font-semibold text-slate-800">${formDataCache.namaLengkap || '-'}</p></div>
+                        <div><span class="text-slate-500">Jenis Kelamin:</span> <p class="font-semibold text-slate-800">${formDataCache.jenisKelamin || '-'}</p></div>
+                        <div><span class="text-slate-500">NIK:</span> <p class="font-semibold text-slate-800 font-mono">${formDataCache.nik || '-'}</p></div>
+                        <div><span class="text-slate-500">NISN:</span> <p class="font-semibold text-slate-800 font-mono">${formDataCache.nisn || '-'}</p></div>
+                        <div><span class="text-slate-500">Tempat, Tgl Lahir:</span> <p class="font-semibold text-slate-800">${formDataCache.tempatLahir || '-'}, ${formDataCache.tanggalLahir || '-'}</p></div>
+                        <div><span class="text-slate-500">Agama:</span> <p class="font-semibold text-slate-800">${formDataCache.agama || '-'}</p></div>
+                        <div class="sm:col-span-2"><span class="text-slate-500">Alamat Tempat Tinggal:</span> <p class="font-semibold text-slate-800">${formDataCache.alamat || '-'}</p></div>
+                    </div>
+                </div>
+
+                <!-- Data Orang Tua -->
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+                    <h3 class="font-bold text-slate-800 text-sm border-b border-slate-200 pb-2 mb-3 flex items-center justify-between">
+                        <span class="flex items-center gap-2"><i class="fa-solid fa-users text-indigo-600"></i> Data Orang Tua / Wali</span>
+                        <button type="button" onclick="goToStep(2)" class="text-xs text-indigo-600 hover:underline no-print font-medium">Ubah</button>
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4 text-xs sm:text-sm">
+                        <div><span class="text-slate-500">Nama Ayah:</span> <p class="font-semibold text-slate-800">${formDataCache.namaAyah || '-'}</p></div>
+                        <div><span class="text-slate-500">Pekerjaan Ayah:</span> <p class="font-semibold text-slate-800">${formDataCache.pekerjaanAyah || '-'}</p></div>
+                        <div><span class="text-slate-500">Nama Ibu:</span> <p class="font-semibold text-slate-800">${formDataCache.namaIbu || '-'}</p></div>
+                        <div><span class="text-slate-500">Pekerjaan Ibu:</span> <p class="font-semibold text-slate-800">${formDataCache.pekerjaanIbu || '-'}</p></div>
+                        <div><span class="text-slate-500">WhatsApp Ortua (Kontak Utama):</span> <p class="font-semibold text-indigo-600">+62 ${formDataCache.noOrtu || '-'}</p></div>
+                        <div class="sm:col-span-2"><span class="text-slate-500">Alamat Orang Tua:</span> <p class="font-semibold text-slate-800">${formDataCache.alamatOrtu || '-'}</p></div>
+                    </div>
+                </div>
+
+                <!-- Berkas -->
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+                    <h3 class="font-bold text-slate-800 text-sm border-b border-slate-200 pb-2 mb-3 flex items-center justify-between">
+                        <span class="flex items-center gap-2"><i class="fa-solid fa-file-circle-check text-indigo-600"></i> Status Berkas Unggahan</span>
+                        <button type="button" onclick="goToStep(3)" class="text-xs text-indigo-600 hover:underline no-print font-medium">Ubah</button>
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4 text-xs sm:text-sm">
+                        <div><span class="text-slate-500">Akte Kelahiran:</span> <p class="font-semibold text-emerald-700 flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> ${uploadedFileNames.fileAkte || 'Terunggah'}</p></div>
+                        <div><span class="text-slate-500">Kartu Keluarga (KK):</span> <p class="font-semibold text-emerald-700 flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> ${uploadedFileNames.fileKK || 'Terunggah'}</p></div>
+                        <div><span class="text-slate-500">Ijazah SD:</span> <p class="font-semibold text-emerald-700 flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> ${uploadedFileNames.fileIjazahSD || 'Terunggah'}</p></div>
+                        <div><span class="text-slate-500">Ijazah SMP (Opsional):</span> <p class="font-semibold ${uploadedFileNames.fileIjazahSMP ? 'text-emerald-700' : 'text-slate-400'} flex items-center gap-1">${uploadedFileNames.fileIjazahSMP ? `<i class="fa-solid fa-circle-check"></i> ${uploadedFileNames.fileIjazahSMP}` : '<i>(Tidak diunggah)</i>'}</p></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Final Submit Handlers
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const persetujuan = document.getElementById("persetujuan");
+            if (!persetujuan.checked) {
+                showAlert("Centang kotak persetujuan keabsahan data terlebih dahulu.", "warning");
+                return;
+            }
+
+            document.getElementById("modalStudentName").innerText = formDataCache.namaLengkap || "Siswa";
+            const modal = document.getElementById("successModal");
+            const modalCard = document.getElementById("modalCard");
+            
+            modal.classList.remove("hidden");
+            setTimeout(() => {
+                modalCard.classList.remove("scale-95", "opacity-0");
+                modalCard.classList.add("scale-100", "opacity-100");
+            }, 50);
+
+            localStorage.removeItem("siswa_form_draft");
+        }
+
+        function downloadJSON() {
+            const downloadData = {
+                ...formDataCache,
+                uploaded_files: uploadedFileNames,
+                timestamp: new Date().toISOString()
+            };
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(downloadData, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", `Data_Siswa_${formDataCache.namaLengkap ? formDataCache.namaLengkap.replace(/\s+/g, '_') : 'Siswa'}.json`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+
+        function showAlert(msg, type = "error") {
+            const alertBanner = document.getElementById("alertBanner");
+            const alertMessage = document.getElementById("alertMessage");
+            const alertIcon = document.getElementById("alertIcon");
+
+            alertMessage.innerText = msg;
+            alertBanner.classList.remove("hidden", "bg-rose-50", "border-rose-200", "text-rose-800", "bg-amber-50", "border-amber-200", "text-amber-800");
+
+            if (type === "error") {
+                alertBanner.classList.add("bg-rose-50", "border-rose-200", "text-rose-800");
+                alertIcon.className = "fa-solid fa-circle-exclamation mt-0.5 text-rose-600";
+            } else {
+                alertBanner.classList.add("bg-amber-50", "border-amber-200", "text-amber-800");
+                alertIcon.className = "fa-solid fa-triangle-exclamation mt-0.5 text-amber-600";
+            }
+
+            alertBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function closeAlert() {
+            document.getElementById("alertBanner").classList.add("hidden");
+        }
+
+        function resetForm() {
+            document.getElementById("studentForm").reset();
+            localStorage.removeItem("siswa_form_draft");
+            document.getElementById("successModal").classList.add("hidden");
+            uploadedFileNames = { fileAkte: '', fileKK: '', fileIjazahSD: '', fileIjazahSMP: '' };
+            ['statusAkte', 'statusKK', 'statusIjazahSD', 'statusIjazahSMP'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            goToStep(1);
+            calculateProgress();
+        }
+		JavaScript
+			const SCRIPT_URL = https://script.google.com/macros/s/AKfycbyxJde-kRf8ffTsouThrFnHQqaT7nVzogIiMscznPYUflOJowd33zWe65_cDaBdyd7e/exec;
+    </script>
+</body>
+</html>
